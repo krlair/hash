@@ -1,7 +1,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "hash.h" //deleted define and function prototypes because they are in this file
+
+#define NUM_BUCKETS 47 // normally larger. We just picked a value.
+
+//now we need a linked list to represent the lists in the buckets
+//use typedef to shorten the name 
+typedef struct Node {
+	char * value; // we're storing strings 
+	struct Node * next; // point to next node
+} NODE; 
+		// NODE is not a variable. If typedef was not there, it would be a variable
+		// NODE can now be used to declare future variables instead of struct Node
+		// NODE n vs struct Node n: these are the same
+
+NODE * lookup(NODE ** htable, char * value);
+int hash(char * value);
+void insert(NODE ** htable, char * value);
+void print(NODE ** htable);
 
 /* Implement a lookup func to look for a given value in the hash table */
 NODE * lookup(NODE ** htable, char * value) {
@@ -82,8 +98,7 @@ void print(NODE ** htable) {
 }
 
 // main is for unit testing
-//not needed for header
-/*int main() {
+int main() {
 
 	// hashtable is a pointer pointing to Node *
 	NODE ** hash_table;
@@ -99,4 +114,4 @@ void print(NODE ** htable) {
 	print(hash_table);
 
 	return 0;
-}*/
+}
